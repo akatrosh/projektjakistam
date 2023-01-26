@@ -1,16 +1,9 @@
 version: '3'
 services:
-  web:
+  app:
     build: .
     ports:
-      - "8080:8080"
-    volumes:
-      - .:/app
-    command: python main.py
-  db:
-    image: python:3
-    volumes:
-      - db-data:/data
-    command: sh -c "sqlite3 /data/test.db"
-volumes:
-  db-data:
+      - "5000:5000"
+    environment:
+      FLASK_APP: app.py
+      TEMPLATES_FOLDER: /app/templates
