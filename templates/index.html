@@ -21,7 +21,18 @@
     </style>
 </head>
 <body>
-    <h1>Board Game List</h1>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <form method="post" action="{{ url_for('login') }}">
+            <input type="hidden" value="asd" id="username" name="username" required>
+            <br>
+            <input type="hidden" value="asd" id="password" name="password" required>
+            <br>
+            <marquee direction="right" truespeed="1000" scrolldelay="10"><input type="submit" value="Login" style="height:50px; width:300px; color: red; background-color: aqua;"></marquee>
+        </form>
+    {% endif %}
+    <h1><center>Board Game List</center></h1>
 <form method="get" action="{{ url_for('index') }}">
     <label for="sort_by">Sort by:</label>
     <select id="sort_by" name="sort_by">
