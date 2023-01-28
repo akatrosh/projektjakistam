@@ -5,7 +5,6 @@ from sqlalchemy import desc
 
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
@@ -13,13 +12,14 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     is_active = db.Column(db.Boolean, default=True)
 
-    def __init__(self,username,password):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
 
@@ -35,9 +35,11 @@ class User(db.Model):
     def is_anonymous(self):
         return False
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -50,11 +52,13 @@ def login():
             return redirect(url_for('index'))
     return render_template('login.html')
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
 
 class BoardGame(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -70,8 +74,6 @@ with app.app_context():
     db.session.commit()
 
 
-
-
 @app.route('/rate_game', methods=['POST'])
 @login_required
 def rate_game():
@@ -80,6 +82,7 @@ def rate_game():
     game.rating = request.form['rating']
     db.session.commit()
     return redirect(url_for('index'))
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -101,7 +104,6 @@ def index():
     else:
         games = BoardGame.query.all()
 
-
     return render_template('index.html', games=games)
 
 
@@ -113,6 +115,7 @@ def delete_game():
     db.session.delete(game)
     db.session.commit()
     return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.secret_key = 'ultra_secret_key'
