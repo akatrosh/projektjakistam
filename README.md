@@ -20,6 +20,6 @@ Po uruchomieniu terminalu projektu trzeba użyć komendy: `docker-compose up --b
 
 
 ### Wykonali:
-Adam Marczak (26251)
-Dominik Jezierski (25642)
-Gustaw Łączkowski (25603)
+- Adam Marczak (26251)
+- Dominik Jezierski (25642)
+- Gustaw Łączkowski (25603)
